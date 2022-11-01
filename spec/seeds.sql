@@ -62,3 +62,4 @@ CREATE TABLE public.bookings (
     "status" text,
     PRIMARY KEY (id)
 );
+
