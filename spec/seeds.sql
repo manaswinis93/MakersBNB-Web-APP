@@ -22,7 +22,7 @@ CREATE TABLE public.spaces (
     "name" text,
     "description" text,
     "price" text,
-    "host_id" int,
+    "user_id" int,
     PRIMARY KEY (id)
 );
 
