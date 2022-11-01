@@ -5,16 +5,30 @@ DatabaseConnection.connect('makersbnb_test')
 #require_relative 'lib/user_repository'
 
 class Application < Sinatra::Base
+  # session
+  enable :sessions
+
   configure :development do
     register Sinatra::Reloader
   end
 
+  # classes
+  user_repos = UserRepository.new
+
+  # get routes
   get '/' do
+    # example of session access
+    @current_user = session[:current_user_id]
+    # erb
     return erb(:index)
   end
-
-  user_repos = UserRepository.new
+  get '/register' do
+    # erb
+    @error_msg = n
+    return erb(:register)
+  end
   
+  # register routes
   post '/register' do
     # expected params:
     # email, password
