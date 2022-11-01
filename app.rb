@@ -14,6 +14,7 @@ class Application < Sinatra::Base
 
   # classes
   user_repos = UserRepository.new
+  space_repos = SpaceRepository.new
 
   # get routes
   get '/' do
@@ -22,13 +23,19 @@ class Application < Sinatra::Base
     # erb
     return erb(:index)
   end
+
+  get '/spaces' do
+    @all_spaces = space_repos.all 
+    return erb(:spaces)
+  end
+
   get '/register' do
     # erb
-    @error_msg = n
     return erb(:register)
   end
   
-  # register routes
+  
+  # post routes
   post '/register' do
     # expected params:
     # email, password

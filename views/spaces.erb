@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spaces - MakersBnB</title>
+        <link rel="stylesheet" href="/style.css" >
+    </head>
+    <body>
+
+        <% if @all_spaces.any? %>
+            <ul class="spaces-list">
+                <% @all_spaces.each do |space| %>
+                    <li>
+                        <div class="space-item">
+                            <p>Name: <%= space.name %></p>
+                            <p>Description: <%= space.description %></p>
+                            <p>Price: £<%= space.price %></p>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+
+    </body>
+</html>

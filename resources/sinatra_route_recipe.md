@@ -11,8 +11,8 @@ You'll need to include:
   * or body parameters (passed in the request body)
 
 
-POST /register
-body parameters: email, password (encrypted)
+GET /spaces
+
 
 ## 2. Design the Response
 
@@ -26,17 +26,16 @@ _Replace the below with your own design. Think of all the different possible res
 
 ```html
 <!-- EXAMPLE -->
-<!-- Response when the email is not found in table: 302 OK -->
+<!-- Response 200 OK and returns list of spaces-->
 
-Goes to login page (/login)
-```
+All spaces
 
-<!-- EXAMPLE -->
-<!-- Response when the email is found in table: 200 OK -->
-This email has already been registered, would you like to login?
-(consider GET method for this)
+<div>
+  Name:
+  Short description:
+  Price:
+</div>
 
-```html
 
 ```
 
@@ -46,16 +45,11 @@ _Replace these with your own design._
 
 ```
 # Request:
-POST /register
-# Expected response:
-Response for 302 OK
-```
-```
-# Request:
-POST /register
+GET /spaces
 # Expected response:
 Response for 200 OK
 ```
+
 
 ## 4. Encode as Tests Examples
 
@@ -66,28 +60,12 @@ require "spec_helper"
 describe Application do
   include Rack::Test::Methods
   let(:app) { Application.new }
-  context "POST /register" do
-    it 'returns 302, registers user and redirects to login page' do
-      # Assuming the email address is unique
-      response = post('/register',
-        email: 'johndoe@example.com',
-        password: 'password312'
-      )
-      expect(response.status).to eq(302)
-      expect(response.body).to eq("")
-    end
-    it 'returns 200, does not register user, returns error message' do
-      response_initial = post('/register',
-        email: 'johndoe@example.com',
-        password: 'password312'
-      )
+  context "GET /spaces" do
+    it 'returns 200 OK and returns list of spaces' do
+      response = get('/spaces')
 
-      response = post('/register',
-        email: 'johndoe@example.com',
-        password: 'password312'
-      )
       expect(response.status).to eq(200)
-      expect(response.body).to include("This email has already been registered")
+      expect(response.body).to include("<h2>Space1</h2>")
     end
   end
 end
