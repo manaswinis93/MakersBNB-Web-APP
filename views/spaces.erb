@@ -15,6 +15,10 @@
                                 <p>Name: <%= space.name %></p>
                                 <p>Description: <%= space.description %></p>
                                 <p>Price: £<%= space.price %></p>
+                                <form action="/book" action="post">
+                                    <input name="space_id" value="<%= space.id %>" type="hidden">
+                                    <input type="submit" value="Book this space">
+                                </form>
                             </div>
                         </li>
                     <% end %>
