@@ -11,6 +11,15 @@ CREATE TABLE public.users (
     PRIMARY KEY ("id")
 );
 
+INSERT INTO public.users ("email", "password") VALUES
+(
+    'samm@makersacademy.com',
+    '$2a$12$KOS94zwuzuH6qnOkj.cmzuooSE.dO7J.f8BIVwCiwqTsl6EwO/ECm'
+),(
+    'john@example.com',
+    '$2a$12$KOS94zwuzuH6qnOkj.cmzuooSE.dO7J.f8BIVwCiwqTsl6EwO/ECm'
+);
+
 -- spaces
 
 DROP TABLE IF EXISTS public.spaces;
@@ -24,6 +33,19 @@ CREATE TABLE public.spaces (
     "price" text,
     "user_id" int,
     PRIMARY KEY (id)
+);
+
+INSERT INTO public.spaces ("name", "description", "price", "user_id") VALUES
+(
+    'Space1',
+    'The first space',
+    '15',
+    '1'
+),(
+    'Space2',
+    'The second space',
+    '15',
+    '1'
 );
 
 -- bookings
@@ -40,3 +62,4 @@ CREATE TABLE public.bookings (
     "status" text,
     PRIMARY KEY (id)
 );
+
