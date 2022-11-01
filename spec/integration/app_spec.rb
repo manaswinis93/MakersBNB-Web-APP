@@ -31,28 +31,28 @@ describe Application do
     it 'should get the homepage' do
       response = get('/')
 
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
     end
   end
 
   context "POST /register" do
-    xit 'returns 302, registers user and redirects to login page' do
+    it 'returns 302, registers user and redirects to login page' do
       # Assuming the email address is unique
       response = post('/register',
-        email: 'johndoe@example.com',
+        email: 'janedoe@example.com',
         password: 'password312'
       )
       expect(response.status).to eq(302)
       expect(response.body).to eq("")
     end
-    xit 'returns 200, does not register user, returns error message' do
+    it 'returns 200, does not register user, returns error message' do
       response_initial = post('/register',
-        email: 'johndoe@example.com',
+        email: 'doejane@example.com',
         password: 'password312'
       )
 
       response = post('/register',
-        email: 'johndoe@example.com',
+        email: 'doejane@example.com',
         password: 'password312'
       )
       expect(response.status).to eq(200)
@@ -65,7 +65,7 @@ describe Application do
       response = get('/spaces')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include("<h2>Space1</h2>")
+      expect(response.body).to include("Space1")
     end
   end
 end
