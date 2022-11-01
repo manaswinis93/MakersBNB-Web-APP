@@ -2,7 +2,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 DatabaseConnection.connect('makersbnb_test')
-#require_relative 'lib/user_repository'
+require_relative 'lib/user_repository'
+require_relative 'lib/space_repository'
 
 class Application < Sinatra::Base
   # session
