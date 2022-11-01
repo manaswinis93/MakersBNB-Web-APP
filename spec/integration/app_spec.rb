@@ -11,6 +11,15 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  def reset_database
+    seed_sql = File.read('spec/seeds.sql')
+    connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test'})
+    connection.exec(seed_sql)
+  end
+
+  before(:each) do
+    reset_database
+  end
   # Write your integration tests below.
   # If you want to split your integration tests
   # accross multiple RSpec files (for example, have
@@ -23,6 +32,40 @@ describe Application do
       response = get('/')
 
       expect(response.status).to eq(200)
+    end
+  end
+
+  context "POST /register" do
+    xit 'returns 302, registers user and redirects to login page' do
+      # Assuming the email address is unique
+      response = post('/register',
+        email: 'johndoe@example.com',
+        password: 'password312'
+      )
+      expect(response.status).to eq(302)
+      expect(response.body).to eq("")
+    end
+    xit 'returns 200, does not register user, returns error message' do
+      response_initial = post('/register',
+        email: 'johndoe@example.com',
+        password: 'password312'
+      )
+
+      response = post('/register',
+        email: 'johndoe@example.com',
+        password: 'password312'
+      )
+      expect(response.status).to eq(200)
+      expect(response.body).to include("This email has already been registered")
+    end
+  end
+
+  context "GET /spaces" do
+    it 'returns 200 OK and returns list of spaces' do
+      response = get('/spaces')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include("<h2>Space1</h2>")
     end
   end
 end
