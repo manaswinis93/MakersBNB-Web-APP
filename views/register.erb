@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register - MakersBnB</title>
+        <link rel="stylesheet" href="/style.css" >
+    </head>
+    <body>
+        <p style="color:red"> <% @error_msg%> </p>
+
+        <form action = "/register" method = "POST">
+            <p>
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" required />
+            </p>
+            <p>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" required />
+            </p>
+            <p>
+                <input type = "submit" value= "Submit the form">
+            </p>
+        </form>
+    </body>
+</html>
