@@ -22,7 +22,7 @@ class Application < Sinatra::Base
     # example of session access
     @current_user = session[:current_user_id]
     # erb
-    return erb(:index)
+    redirect "/spaces"
   end
 
   get '/spaces' do
