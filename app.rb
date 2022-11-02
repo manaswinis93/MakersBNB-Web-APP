@@ -57,6 +57,20 @@ class Application < Sinatra::Base
   
   
   # post routes
+  post '/list_space' do
+    set_session_for_testing()
+
+    result = space_repos.create(
+      params[:name], params[:description], params[:price], session[:current_user_id]
+    )  
+
+    if (result.nil?)
+      return "That Listing already exists. Please try again."
+    end
+
+    return erb(:space_added)
+
+  end
   post '/book' do
     set_session_for_testing()
     #

@@ -80,7 +80,7 @@ describe Application do
 
   
   context "POST /book" do
-    xit 'returns 200 OK and books space' do
+    it 'returns 200 OK and books space' do
       response = post('/book', space_id: 2  )
 
       expect(response.status).to eq(200)
@@ -88,15 +88,24 @@ describe Application do
     end
   end
 
-  #list_space test
+  #list_space testing
+  #Get Route for list_space
   context "GET /list_space" do
     it 'returns 200 OK and adds a space to rent' do
-      response = get('/list_spaces', name: "Yellow Cottage" , description: "A nice stay" , price: "100" )
+      response = get('/list_space')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include ("Yellow Cottage")
-      expect(response.body).to include ("A nice stay")
-      expect(response.body).to include ("100")
+      expect(response.body).to include ('<form method="post" action="/list_space">')
+      expect(response.body).to include ('<input type="text" name="name" />')
+    end
+  end
+  #Post route for list_space (space added)
+  context "POST /list_space" do
+    it 'returns 200 OK and adds a space to rent' do
+      response = post('/list_space', name: "Yellow Cottage" , description: "A nice stay" , price: "100")
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include ("Your listing has been added.")
     end
   end
 
