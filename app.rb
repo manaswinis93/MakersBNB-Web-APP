@@ -63,6 +63,9 @@ class Application < Sinatra::Base
     result = booking_repos.create(
       session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
     )
+    if(result.nil?)
+      return "That booking already exists. Please try again."
+    end
     
     return erb(:book)
     #Work to do :letting the user choose the date 
