@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,15 +5,36 @@
       <link rel="stylesheet" src="/style.css" >
   </head>
   <body>
-    <form method="post" action="/space">
-      <h1>List a space</h1>
+    <form method="post" action="/list_space">
+
+  <h1>List a space</h1>
+   <p>
+    <div>
+      <label>Name:</label>
       <input type="text" name="name" />
-      <br>
+    </div>
+   </p> 
+
+   <p>
+    <div>
+      <label>Description:</label>
       <input type="text" name="description" />
-      <br>
+    </div>
+   </p> 
+
+   <p>
+    <div>
+      <label>Price:</label>
       <input type="text" name="price" />
-      <br>
+    </div>
+   </p>
+
+   <p>
+    <div>
       <input type="submit" value="List space" />
-    </form>
+    </div>
+  </p>
+
+</form>
   </body>
 </html>

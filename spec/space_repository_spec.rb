@@ -80,5 +80,17 @@ def reset_spaces_table
             expect(spaces[-1].price).to eq('300')
             expect(spaces[-1].user_id).to eq(3) #will be a session variable
         end
+    it "returns nil if that listing already exists in the table" do
+        repo = SpaceRepository.new
+
+        name = 'cottage_1'
+        description =  'Good description'
+        price = 250
+        user_id =  2
+        result = repo.create(name, description, price, user_id)
+    
+
+        expect(result).to eq nil
     end
+end
   end
