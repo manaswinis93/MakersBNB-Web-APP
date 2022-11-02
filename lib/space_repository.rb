@@ -69,10 +69,10 @@ class SpaceRepository
   
     # Add more methods below for each operation you'd like to implement.
   
-    def create(space)
+    def create(name, description, price, user_id)
       # Executes the SQL query:
       sql = 'INSERT INTO spaces (name, description, price, user_id)  VALUES ($1, $2, $3, $4);'
-      sql_params = [space.name, space.description, space.price, space.user_id]
+      sql_params = [name, description, price, user_id]
       DatabaseConnection.exec_params(sql, sql_params)
       return ''  
     end

@@ -1,9 +1,11 @@
+
 require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 DatabaseConnection.connect('makersbnb_test')
 require_relative 'lib/user_repository'
 require_relative 'lib/space_repository'
+require_relative  'lib/booking_repository'
 
 class Application < Sinatra::Base
   # session
@@ -16,6 +18,7 @@ class Application < Sinatra::Base
   # classes
   user_repos = UserRepository.new
   space_repos = SpaceRepository.new
+  book_repos = BookingRepository.new
 
   # get routes
   get '/' do
@@ -34,9 +37,24 @@ class Application < Sinatra::Base
     # erb
     return erb(:register)
   end
+
+  get '/list_space' do
+    
+    return erb(:list_space)
+  end
   
   
   # post routes
+  post '/book' do
+    
+    result = booking_repos.create(
+      1 , params[:space_id], ('02/11/2022'), ('Requested')
+    )
+    
+    return erb(:book)
+    #Work to do :letting the user choose the date 
+  end
+
   post '/register' do
     # expected params:
     # email, password
