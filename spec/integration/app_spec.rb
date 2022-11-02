@@ -68,4 +68,14 @@ describe Application do
       expect(response.body).to include("Space1")
     end
   end
+  
+  context "POST /book" do
+    it 'returns 200 OK and books space' do
+      response = post('/book', space_id: 2  )
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include("Your Booking has been Requested!")
+    end
+  end
 end
+
