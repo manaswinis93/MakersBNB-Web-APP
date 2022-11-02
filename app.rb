@@ -37,6 +37,11 @@ class Application < Sinatra::Base
     # erb
     return erb(:register)
   end
+
+  get '/list_space' do
+    
+    return erb(:list_space)
+  end
   
   
   # post routes

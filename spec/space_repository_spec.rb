@@ -65,12 +65,11 @@ def reset_spaces_table
         it "inserts a new space record into the spaces table" do
             repo = SpaceRepository.new
 
-            space = Space.new
-            space.name = 'cottage_5'
-            space.description =  'Just description'
-            space.price = 300
-            space.user_id =  3
-            repo.create(space)
+            name = 'cottage_5'
+            description =  'Just description'
+            price = 300
+            user_id =  3
+            repo.create(name, description, price, user_id)
             spaces = repo.all
 
 
