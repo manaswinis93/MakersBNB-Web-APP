@@ -1,4 +1,4 @@
-# {{TABLE NAME}} Model and Repository Classes Design Recipe
+# Bookings Model and Repository Classes Design Recipe
 
 _Copy this recipe template to design and implement Model and Repository classes for a database table._
 
@@ -60,13 +60,13 @@ Usually, the Model class name will be the capitalised table name (single instead
 # Table name: students
 
 # Model class
-# (in lib/student.rb)
-class Student
+# (in lib/booking.rb)
+class Booking
 end
 
 # Repository class
-# (in lib/student_repository.rb)
-class StudentRepository
+# (in lib/booking_repository.rb)
+class BookingRepository
 end
 ```
 
@@ -79,12 +79,12 @@ Define the attributes of your Model class. You can usually map the table columns
 # Table name: students
 
 # Model class
-# (in lib/student.rb)
+# (in lib/booking.rb)
 
 class Booking
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :space_id, :user_id, :status
+  attr_accessor :id, :space_id, :user_id, :date, :status
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -109,9 +109,9 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Table name: students
 
 # Repository class
-# (in lib/student_repository.rb)
+# (in lib/booking_repository.rb)
 
-class StudentRepository
+class BookingRepository
 
   # Selecting all records
   # No arguments
@@ -133,8 +133,11 @@ class StudentRepository
 
   # Add more methods below for each operation you'd like to implement.
 
-  # def create(student)
-  # end
+  # user_id,space_id,date,status
+  def create(user_id,space_id,date,status)
+    
+
+  end
 
   # def update(student)
   # end
@@ -154,48 +157,49 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Create a booking
 
-repo = StudentRepository.new
+repo = BookingRepository.new
+booking = Booking.new
 
-students = repo.all
+booking.date = '02/11/2022'
 
-students.length # =>  2
 
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
+# example from Haydn and Manaswini's POST route
+repo.create(1,2,"02/11/2022","Requested")
 
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
+def all()
+  # returns all
+end
 
-# 2
-# Get a single student
+def create(user_id,space_id,date,status)
+  # SQL insert query
+  # 
+  booking = Booking.new
+  booking.date=date
+  booking.space_id=space_id
+  booking.user_id=user_id
+  booking.id=id
+  # and other attrs
+  return booking
+end
 
-repo = StudentRepository.new
 
-student = repo.find(1)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+# Encode this example as a test.
 
-# Add more examples for each method
-```
 
-Encode this example as a test.
+
 
 ## 7. Reload the SQL seeds before each test run
 
-Running the SQL code present in the seed file will empty the table and re-insert the seed data.
+# Running the SQL code present in the seed file will empty the table and re-insert the seed data.
 
-This is so you get a fresh table contents every time you run the test suite.
+# This is so you get a fresh table contents every time you run the test suite.
 
-```ruby
 # EXAMPLE
 
-# file: spec/student_repository_spec.rb
+# file: spec/booking_repository_spec.rb
 
 def reset_students_table
   seed_sql = File.read('spec/seeds_students.sql')
@@ -209,10 +213,30 @@ describe StudentRepository do
   end
 
   # (your tests will go here).
-end
-```
+  context "create a booking" do
+    it "should add a booking with the passed arguments" do
+      
+      repo = BookingRepository.new
+      booking_result = repo.create(1,2,"02/11/2022","Requested")
+
+      # check that the method has returned a booking instance
+      expect(booking_result.date).to eq('02/11/2022')
+      expect(booking_result.status).to eq('Requested')
+    end
+    it "should reject a booking that already exists" do
+      
+      repo = BookingRepository.new
+      booking_result_first = repo.create(1,2,"02/11/2022","Requested")
+      # attempting to create a duplicate booking
+      booking_result_second = repo.create(1,2,"02/11/2022","Requested")
+
+      # should return nil, as no booking could be created
+      # due to it already existing
+      expect(booking_result_second).to eq(nil)
+    end
+  end
 
 ## 8. Test-drive and implement the Repository class behaviour
 
-_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
+# _After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
 
