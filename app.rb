@@ -10,7 +10,11 @@ require_relative  'lib/booking_repository'
 class Application < Sinatra::Base
   # session
   enable :sessions
+  def set_session_for_testing
+    session[:current_user_id] = "1"
+  end
 
+  # config
   configure :development do
     register Sinatra::Reloader
   end
@@ -22,6 +26,7 @@ class Application < Sinatra::Base
 
   # get routes
   get '/' do
+    set_session_for_testing()
     # example of session access
     @current_user = session[:current_user_id]
     # erb
@@ -29,11 +34,18 @@ class Application < Sinatra::Base
   end
 
   get '/spaces' do
-    @all_spaces = space_repos.all 
+    set_session_for_testing()
+    # list spaces for a certain date
+    @selected_date = params[:selected_date]
+    @all_spaces = []
+    if(@selected_date.nil? == false)
+      @all_spaces = space_repos.all_available(@selected_date)
+    end
     return erb(:spaces)
   end
 
   get '/register' do
+    set_session_for_testing()
     # erb
     return erb(:register)
   end
@@ -56,6 +68,7 @@ class Application < Sinatra::Base
   end
 
   post '/register' do
+    set_session_for_testing()
     # expected params:
     # email, password
     result = user_repos.create(
