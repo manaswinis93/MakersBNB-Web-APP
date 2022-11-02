@@ -1,3 +1,45 @@
+html{
+    margin:0px;
+    font-family:Helvetica;
+}
 body {
-    font-size: 18px;
+    font-size: 15px;
+    margin:30px 15%;
+}
+p{
+    margin:15px;
+}
+input{
+    display:inline-block;
+    margin:15px;
+    font:inherit;
+}
+input[type="submit"]{
+    background-color:gold;
+    border-color:transparent;
+    padding:5px 15px;
+    cursor:pointer;
+    border-radius:5px;
+}
+h1,h2{
+    font-size:20px;
+    margin:7.5px;
+    padding:7.5px;
+    border-bottom:solid 1px rgba(0,0,0,0.1);
+    font-weight:normal;
+}
+fieldset{
+    border:0;
+    background-color:rgba(0,0,0,0);
+    padding:15px;
+    border-bottom:dashed 1px rgba(0,0,0,0.1);
+}
+.spaces-list li{
+    margin-bottom:15px;
+    list-style:none;
+}
+.space-item{
+    background-color:rgba(0,0,0,0.05);
+    border-radius:7.55px;
+    padding:15px;
 }

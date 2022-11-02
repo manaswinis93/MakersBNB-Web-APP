@@ -36,9 +36,10 @@ class Application < Sinatra::Base
   get '/spaces' do
     set_session_for_testing()
     # list spaces for a certain date
-    @selected_date = params[:selected_date]
+    date_param = params[:selected_date]
     @all_spaces = []
-    if(@selected_date.nil? == false)
+    if(date_param.nil? == false)
+      @selected_date = date_param.split("-").reverse.join("/")
       @all_spaces = space_repos.all_available(@selected_date)
     end
     return erb(:spaces)

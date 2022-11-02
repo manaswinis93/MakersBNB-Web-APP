@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Spaces - MakersBnB</title>
+        <title>Spaces | MakersBnB</title>
         <link rel="stylesheet" href="/style.css" >
     </head>
     <body>
@@ -9,12 +9,12 @@
             <fieldset>
                 <p>Select the date you would like to see listings for.</p>
                 <form action="/spaces" method="get">
-                    <input name="selected_date" type="text" placeholder="dd/mm/yyyy">
+                    <input name="selected_date" type="date" placeholder="dd/mm/yyyy" min=01/11/2022 required>
                     <input type="submit">
                 </form>
             </fieldset>
             <% if @all_spaces.any? %>
-                <p>Here are all the listings for that date.</p>
+                <p>Here are all the listings for <em><%= @selected_date %></em>.</p>
                 <ul class="spaces-list">
                     <% @all_spaces.each do |space| %>
                         <li>
