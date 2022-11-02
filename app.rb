@@ -22,7 +22,7 @@ class Application < Sinatra::Base
   # classes
   user_repos = UserRepository.new
   space_repos = SpaceRepository.new
-  book_repos = BookingRepository.new
+  booking_repos = BookingRepository.new
 
   # get routes
   get '/' do
@@ -51,17 +51,21 @@ class Application < Sinatra::Base
   end
 
   get '/list_space' do
-    
+    set_session_for_testing()
     return erb(:list_space)
   end
   
   
   # post routes
   post '/book' do
-    
+    set_session_for_testing()
+    #
     result = booking_repos.create(
-      1 , params[:space_id], ('02/11/2022'), ('Requested')
+      session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
     )
+    if(result.nil?)
+      return "That booking already exists. Please try again."
+    end
     
     return erb(:book)
     #Work to do :letting the user choose the date 

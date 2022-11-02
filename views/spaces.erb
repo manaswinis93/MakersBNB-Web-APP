@@ -24,6 +24,7 @@
                                 <p>Price: £<%= space.price %></p>
                                 <form action="/book" method="post">
                                     <input name="space_id" value="<%= space.id %>" type="hidden">
+                                    <input name="selected_date" value="<%= @selected_date %>" type="text" readonly>
                                     <input type="submit" value="Book this space">
                                 </form>
                             </div>
