@@ -34,6 +34,23 @@ describe Application do
       expect(response.status).to eq(302)
     end
   end
+  context "GET /spaces" do
+    it 'returns 200 OK and returns an empty list when no date is specified' do
+      response = get('/spaces')
+
+      expect(response.status).to eq(200)
+      expect(response.body).not_to include("space-item")
+    end
+  end
+  context "GET /spaces" do
+    it 'returns 200 OK and returns list of spaces without one that has been booked on this date' do
+      response = get('/spaces',
+        selected_date: '05/11/2022'
+      )
+      expect(response.status).to eq(200)
+      expect(response.body).not_to include("cottage_3")
+    end
+  end
 
   context "POST /register" do
     it 'returns 302, registers user and redirects to login page' do
@@ -57,15 +74,6 @@ describe Application do
       )
       expect(response.status).to eq(200)
       expect(response.body).to include("This email has already been registered")
-    end
-  end
-
-  context "GET /spaces" do
-    it 'returns 200 OK and returns list of spaces' do
-      response = get('/spaces')
-
-      expect(response.status).to eq(200)
-      expect(response.body).to include("Space1")
     end
   end
 end

@@ -6,8 +6,15 @@
     </head>
     <body>
         <h1>Welcome to MakersBnB!</h1>
-            <p>Here are all the listings</p>
+            <fieldset>
+                <p>Select the date you would like to see listings for.</p>
+                <form action="/spaces" method="get">
+                    <input name="selected_date" type="text" placeholder="dd/mm/yyyy">
+                    <input type="submit">
+                </form>
+            </fieldset>
             <% if @all_spaces.any? %>
+                <p>Here are all the listings for that date.</p>
                 <ul class="spaces-list">
                     <% @all_spaces.each do |space| %>
                         <li>
@@ -15,7 +22,7 @@
                                 <p>Name: <%= space.name %></p>
                                 <p>Description: <%= space.description %></p>
                                 <p>Price: £<%= space.price %></p>
-                                <form action="/book" action="post">
+                                <form action="/book" method="post">
                                     <input name="space_id" value="<%= space.id %>" type="hidden">
                                     <input type="submit" value="Book this space">
                                 </form>
