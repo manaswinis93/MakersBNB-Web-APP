@@ -65,14 +65,13 @@ require "spec_helper"
 describe Application do
   include Rack::Test::Methods
   let(:app) { Application.new }
-  context "GET /list_space" do
+   context "GET /list_space" do
     it 'returns 200 OK and adds a space to rent' do
-      response = get('/list_spaces', name: "Yellow Cottage" , description: "A nice stay" , price: "100" )
+      response = get('/list_space')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include ("Yellow Cottage")
-      expect(response.body).to include ("A nice stay")
-      expect(response.body).to include ("100")
+      expect(response.body).to include ('<form method="post" action="/space">')
+      expect(response.body).to include ('<input type="text" name="name" />')
     end
   end
 end

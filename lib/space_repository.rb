@@ -71,10 +71,17 @@ class SpaceRepository
   
     def create(name, description, price, user_id)
       # Executes the SQL query:
-      sql = 'INSERT INTO spaces (name, description, price, user_id)  VALUES ($1, $2, $3, $4);'
-      sql_params = [name, description, price, user_id]
-      DatabaseConnection.exec_params(sql, sql_params)
-      return ''  
+      check_sql = "SELECT * FROM spaces WHERE name = $1"
+        check_results = DatabaseConnection.exec_params(check_sql, [name])
+        if(check_results.ntuples < 1)
+
+          sql = 'INSERT INTO spaces (name, description, price, user_id)  VALUES ($1, $2, $3, $4);'
+          sql_params = [name, description, price, user_id]
+          DatabaseConnection.exec_params(sql, sql_params)
+          return " "
+        else
+          return nil
+        end 
     end
     # To be decided --- nice to have for user to update and delete spaces if he wants to 
     # def update(student)
