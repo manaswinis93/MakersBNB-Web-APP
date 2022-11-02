@@ -10,6 +10,31 @@ def reset_spaces_table
     before(:each) do 
       reset_spaces_table
     end
+    context "all available method" do
+        it "should return a space that is available " do
+            repo = SpaceRepository.new
+            result = repo.all_available("05/11/2022")
+            # currently there is one space booked on
+            # this date, so expect 4 to be returned
+            expect(result.length).to eq(4)
+        end
+    end
+    context "is available method" do
+        it "should return if a specific space is available " do
+            repo = SpaceRepository.new
+            result = repo.is_available("3","05/11/2022")
+            # this space is booked on this date
+            # should return false
+            expect(result).to eq(false)
+        end
+        it "should return if a specific space is available " do
+            repo = SpaceRepository.new
+            result = repo.is_available("3","06/11/2022")
+            # this space isn't booked on this date
+            # should return true
+            expect(result).to eq(true)
+        end
+    end
     context " all method " do
         it "returns list of all spaces available " do
             repo = SpaceRepository.new
