@@ -34,6 +34,7 @@ describe Application do
       expect(response.status).to eq(302)
     end
   end
+  
   context "GET /spaces" do
     it 'returns 200 OK and returns an empty list when no date is specified' do
       response = get('/spaces')
@@ -41,8 +42,7 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).not_to include("space-item")
     end
-  end
-  context "GET /spaces" do
+  
     it 'returns 200 OK and returns list of spaces without one that has been booked on this date' do
       response = get('/spaces',
         selected_date: '05/11/2022'
@@ -62,6 +62,7 @@ describe Application do
       expect(response.status).to eq(302)
       expect(response.body).to eq("")
     end
+    
     it 'returns 200, does not register user, returns error message' do
       response_initial = post('/register',
         email: 'doejane@example.com',
@@ -76,4 +77,28 @@ describe Application do
       expect(response.body).to include("This email has already been registered")
     end
   end
+
+  
+  context "POST /book" do
+    xit 'returns 200 OK and books space' do
+      response = post('/book', space_id: 2  )
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include("Your Booking has been Requested!")
+    end
+  end
+
+  #list_space test
+  context "GET /list_space" do
+    it 'returns 200 OK and adds a space to rent' do
+      response = get('/list_spaces', name: "Yellow Cottage" , description: "A nice stay" , price: "100" )
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include ("Yellow Cottage")
+      expect(response.body).to include ("A nice stay")
+      expect(response.body).to include ("100")
+    end
+  end
+
 end
+
