@@ -1,4 +1,6 @@
 require 'user_repository'
+#add gem BCRYPT to handle password encryption
+require 'bcrypt'
 
 def reset_users_table
     seed_sql = File.read('spec/seeds/seeds_users.sql')
@@ -7,6 +9,9 @@ def reset_users_table
   end
   
   describe UserRepository do
+
+    include BCrypt
+
     before(:each) do 
       reset_users_table
     end
@@ -42,11 +47,23 @@ def reset_users_table
             password = 'mnbvc123'
             repo.create(email, password)
             user_new = repo.find('jklhgf@asd.com')
-            
-            expect(user_new.id).to eq('3')
+            user_auth = repo.authenticate(email,password)
+
+            expect(user_auth).to_not eq(false)
+            expect(user_auth).to eq("3")
             expect(user_new.email).to eq('jklhgf@asd.com')
-            expect(user_new.password).to eq('mnbvc123')
         end
+    end
+    context "check auth rejects an invalid password" do
+      it "checks if the password entered is wrong" do
+          repo = UserRepository.new
+          email = 'jklhgf@asd.com'
+          password = 'mnbvc123'
+          repo.create(email, password)
+          user_auth = repo.authenticate(email,"notpassword")
+
+          expect(user_auth).to eq(false)
+      end
     end
 
 

@@ -26,7 +26,7 @@ class Application < Sinatra::Base
 
   # get routes
   get '/' do
-    set_session_for_testing()
+    #set_session_for_testing()
     # example of session access
     @current_user = session[:current_user_id]
     # erb
@@ -34,7 +34,7 @@ class Application < Sinatra::Base
   end
 
   get '/spaces' do
-    set_session_for_testing()
+    #set_session_for_testing()
     # list spaces for a certain date
     date_param = params[:selected_date]
     @all_spaces = []
@@ -46,20 +46,20 @@ class Application < Sinatra::Base
   end
 
   get '/register' do
-    set_session_for_testing()
+    #set_session_for_testing()
     # erb
     return erb(:register)
   end
 
   get '/list_space' do
-    set_session_for_testing()
+    #set_session_for_testing()
     return erb(:list_space)
   end
   
   
   # post routes
   post '/list_space' do
-    set_session_for_testing()
+    #set_session_for_testing()
 
     result = space_repos.create(
       params[:name], params[:description], params[:price], session[:current_user_id]
@@ -73,7 +73,7 @@ class Application < Sinatra::Base
 
   end
   post '/book' do
-    set_session_for_testing()
+    #set_session_for_testing()
     #
     result = booking_repos.create(
       session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
@@ -87,7 +87,7 @@ class Application < Sinatra::Base
   end
 
   post '/register' do
-    set_session_for_testing()
+    #set_session_for_testing()
     # expected params:
     # email, password
     result = user_repos.create(
@@ -105,4 +105,28 @@ class Application < Sinatra::Base
       redirect "/login"
     end
   end
+
+  post '/login' do
+    # authenticate the user
+    # expecting two parameters, which are email and password (both plain text)
+    # if the auth response is successful (registered user enters correct email and password -not false), set the session
+    # with the user ID returned
+    # redirect to front page
+    auth = user_repos.authenticate(
+      params[:email],
+      params[:password]
+    )
+    if(auth == false)
+      # incorrect password or user doesn't exist
+      @login_error = "Incorrect email or password."
+      # TODO: login.erb
+      return erb(:login)
+    else
+      # correct
+      session[:current_user_id] = auth
+      session[:guest_or_host] = params[:guest_or_host]
+      redirect "/"
+    end
+  end
+
 end
