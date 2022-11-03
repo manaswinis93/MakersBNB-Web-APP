@@ -92,7 +92,7 @@ describe Application do
   context "POST /login" do
     xit "returns 200 OK, contains a link to register and an error" do
       # these credentials won't work
-      response = post('/register',
+      response = post('/login',
         email: 'doejane@example.com',
         password: 'password312'
       )

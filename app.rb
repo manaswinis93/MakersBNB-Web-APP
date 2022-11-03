@@ -10,9 +10,6 @@ require_relative  'lib/booking_repository'
 class Application < Sinatra::Base
   # session
   enable :sessions
-  def set_session_for_testing
-    session[:current_user_id] = "1"
-  end
 
   # config
   configure :development do
@@ -26,15 +23,17 @@ class Application < Sinatra::Base
 
   # get routes
   get '/' do
-    #set_session_for_testing()
-    # example of session access
+    # get session
     @current_user = session[:current_user_id]
+    
     # erb
     redirect "/spaces"
   end
 
   get '/spaces' do
-    #set_session_for_testing()
+    # get session
+    @current_user = session[:current_user_id]
+    
     # list spaces for a certain date
     date_param = params[:selected_date]
     @all_spaces = []
@@ -42,17 +41,23 @@ class Application < Sinatra::Base
       @selected_date = date_param.split("-").reverse.join("/")
       @all_spaces = space_repos.all_available(@selected_date)
     end
+    # erb
     return erb(:spaces)
   end
 
   get '/register' do
-    #set_session_for_testing()
+    # get session
+    @current_user = session[:current_user_id]
+    
     # erb
     return erb(:register)
   end
 
   get '/list_space' do
-    #set_session_for_testing()
+    # get session
+    @current_user = session[:current_user_id]
+    
+    # erb
     return erb(:list_space)
   end
 
@@ -75,35 +80,36 @@ class Application < Sinatra::Base
   
   # post routes
   post '/list_space' do
-    #set_session_for_testing()
-
     result = space_repos.create(
       params[:name], params[:description], params[:price], session[:current_user_id]
-    )  
-
+    )
+    @space_added_msg = "Your listing has been added."
     if (result.nil?)
-      return "That Listing already exists. Please try again."
+      @space_added_msg = "That Listing already exists. Please try again."
     end
-
+    # get session
+    @current_user = session[:current_user_id]
+    
+    # erb
     return erb(:space_added)
-
   end
   post '/book' do
-    #set_session_for_testing()
-    #
     result = booking_repos.create(
       session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
     )
+    @booking_msg = "Your booking has been requested."
     if(result.nil?)
-      return "That booking already exists. Please try again."
+      @booking_msg = "That booking already exists. Please try again."
     end
+    # get session
+    @current_user = session[:current_user_id]
     
+    # erb
     return erb(:book)
     #Work to do :letting the user choose the date 
   end
 
   post '/register' do
-    #set_session_for_testing()
     # expected params:
     # email, password
     result = user_repos.create(
@@ -114,6 +120,7 @@ class Application < Sinatra::Base
       # error, user was not registered
       # show register page (200)
       @error_msg = "This email has already been registered, would you like to <a href='/login'>login</a>?"
+      
       return erb(:register)
     else
       # success, user was registered and result=their id
@@ -136,6 +143,7 @@ class Application < Sinatra::Base
       # incorrect password or user doesn't exist
       @login_error = "Incorrect email or password."
       # TODO: login.erb
+      
       return erb(:login)
     else
       # correct
