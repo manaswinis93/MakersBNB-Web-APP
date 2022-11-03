@@ -56,13 +56,20 @@ class Application < Sinatra::Base
     return erb(:list_space)
   end
 
-  get '/host_spaces' do
+  get '/host_portal' do
+
+    @current_user = session[:current_user_id]
+
+    return erb(:host_portal)
+  end
+
+  get '/host_listings' do
 
     @current_user = session[:current_user_id]
 
     @listings = space_repos.listings_by_user(@current_user)
 
-    return erb(:host_spaces)
+    return erb(:host_listings)
   end
   
   
