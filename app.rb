@@ -102,6 +102,9 @@ class Application < Sinatra::Base
     return erb(:space_added)
   end
   post '/book' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end  
     result = booking_repos.create(
       session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
     )
