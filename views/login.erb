@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>MakersBNB Login Page</title>
+        <link rel="stylesheet" href="/style_new.css" >
+</head>
+<body>
+     <div class="nav">
+            <div class="nav-tab logo"><p>MakersBnB</p></div>
+            <div class="nav-tab pages">
+                <p><a href="/spaces">Spaces</a></p>
+                <p><a href="/guest_portal">Guests Portal</a></p>
+                <p><a href="/host_portal">Hosts Portal</a></p>
+            </div>
+            <div class="nav-tab account">
+            <% if @current_user.nil? %>
+                <p><a href="/login">Login</a> • <a href="/register">Register</a></p>
+            <% else %>
+                <p>You are logged in.</p>
+            <% end %>
+            </div>
+        </div>
+        <div class="wrapper">
+            <h1>Enter your Login credentials</h1>
+            <p style="color:red"> <%= @login_error%> </p>
+
+          <form method="post" action="/login">
+            <p>
+                    <label for="email">Email:</label>
+                    <input id="email" type="email" name="email" required />
+                </p>
+                <p>
+                    <label for="password">Password:</label>
+                    <input id="password" type="password" name="password" required />
+                </p>
+                <p>
+            <p>
+                <div class ="dropdown">
+                   <label for="user_type">Choose an option:</label>
+
+                    <select name="guest_or_host" id="guest_or_host">
+                      <option value="Guest">Guest</option>
+                      <option value="Host">Host</option>
+
+                    </select>
+                </div>
+            </p>
+            <p>
+              <input type="submit" value="submit" />
+            </p>
+          </form>
+        </div>
+</body>
+</html>
