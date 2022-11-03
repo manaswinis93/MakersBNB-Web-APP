@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Host Portal</title>
-        <link rel="stylesheet" href="/style.css" >
-    </head>
-    <body>
+  <head>
+      <title>Host portal - MakersBnB</title>
+      <link rel="stylesheet" href="/style_new.css" >
+  </head>
+  <body>
+      <div class="nav">
+          <div class="nav-tab logo"><p>MakersBnB</p></div>
+          <div class="nav-tab pages">
+              <p><a href="/spaces">Spaces</a></p>
+              <p><a href="/guest_portal">Guests Portal</a></p>
+              <p><a href="/host_portal">Hosts Portal</a></p>
+          </div>
+          <div class="nav-tab account">
+          <% if @current_user.nil? %>
+              <p><a href="/login">Login</a> • <a href="/register">Register</a></p>
+          <% else %>
+              <p>You are logged in.</p>
+          <% end %>
+          </div>
+      </div>
+      <div class="wrapper">
         <h1>Host Portal</h1>
         <p></p>
 
@@ -15,6 +31,6 @@
         <li>
         <a href = '/host_listings'> View my listings </a>
         </li>
-        
+        </div>
     </body>
 </html>
