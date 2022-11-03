@@ -32,4 +32,43 @@ describe BookingRepository do
             expect(booking_result_second).to eq(nil)
         end
     end
+    context "get all bookings by guest" do
+        it "should get a list of bookings the guest has made as an array of objects" do
+            repo = BookingRepository.new
+            # all_bookings_by_guest(1)
+            bookings = repo.all_bookings_by_guest(1)
+            
+            # check that the method returns an array of bookings by that user
+            expect(bookings.length).to eq(4)
+            expect(bookings[0].space_id).to eq('3')
+            # 06/11/2022
+            expect(bookings[-1].date).to eq('06/11/2022')
+
+        end
+    end
+    context "get all bookings for host" do
+        it "should get a list of bookings for all spaces a host has as an array of objects" do
+            repo = BookingRepository.new
+            # bookings_for_host_spaces(host_id)
+            host_bookings = repo.bookings_for_host_spaces(1)
+            
+            # check that the method returns an array of bookings by that to be checked by the Host
+            expect(host_bookings.length).to eq(1)
+            expect(host_bookings[0].space_id).to eq('2')
+            # 06/11/2022
+            expect(host_bookings[-1].date).to eq('05/11/2022')
+
+        end
+    end
+    context "host :Update the booking status" do
+        it "updated status should be reflected for that booking" do
+            repo = BookingRepository.new
+            # bookings_for_host_spaces(host_id)
+            repo.approve_or_deny_booking(2,"Approved")
+            host_bookings = repo.bookings_for_host_spaces(1)
+            
+            # check that the method returns updated value of status
+            expect(host_bookings[0].status).to eq('Approved')
+        end
+    end
 end

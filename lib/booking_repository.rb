@@ -31,15 +31,52 @@ class BookingRepository
     end
 
     def all_bookings_by_guest(guest_id)
-        
+        # selecting from the bookings table
+        # where user_id==guest_id
+        sql = "SELECT * FROM bookings WHERE user_id=$1"
+        sql_params=[guest_id]
+        sql_result = DatabaseConnection.exec_params(sql, sql_params)
+        # return as array
+        to_return = []
+        sql_result.each do |record|
+            booking = Booking.new
+            booking.date=record["date"]
+            booking.space_id=record['space_id']
+            booking.user_id=record["user_id"]
+            booking.status=record['status']
+            to_return << booking
+        end
+        return to_return
+
     end
 
     def bookings_for_host_spaces(host_id)
+        # selects all spaces that host owns (user_id==host_id)
+        # selects all bookings for those spaces (space_id==tbd)
+        spaces_sql = 'SELECT * FROM spaces WHERE user_id = $1;'
+        spaces_set = DatabaseConnection.exec_params(spaces_sql, [host_id])
+        all_bookings = []
+        spaces_set.each do |space|
+            sql = 'SELECT * FROM bookings WHERE space_id = $1;'
+            result_set = DatabaseConnection.exec_params(sql, [space["id"]])
+            result_set.each do |record|
+                booking = Booking.new
+                booking.date=record["date"]
+                booking.space_id=record['space_id']
+                booking.user_id=record["user_id"]
+                booking.status=record['status']
+                all_bookings << booking
+            end
+        end
+        return all_bookings
 
     end
 
     def approve_or_deny_booking(booking_id,approve_or_deny)
-
+        # update status to "approve_or_deny"
+        # UPDATE Customers SET ContactName='Juan' WHERE Country='Mexico';
+        sql = 'UPDATE bookings SET status = $1 WHERE id = $2;'
+        DatabaseConnection.exec_params(sql, [approve_or_deny, booking_id])
     end
 
 end
