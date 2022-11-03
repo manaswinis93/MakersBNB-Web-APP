@@ -30,6 +30,14 @@ class Application < Sinatra::Base
     redirect "/spaces"
   end
 
+  get'/login' do
+    # get session
+    @current_user = session[:current_user_id]
+    
+    # erb
+    return erb(:login)
+  end
+
   get '/spaces' do
     # get session
     @current_user = session[:current_user_id]
@@ -149,7 +157,13 @@ class Application < Sinatra::Base
       # correct
       session[:current_user_id] = auth
       session[:guest_or_host] = params[:guest_or_host]
-      redirect "/"
+      if session[:guest_or_host] == 'Host'
+        redirect "/host_portal" 
+      else
+         redirect "/"
+      end
+    
+
     end
   end
 

@@ -88,18 +88,7 @@ describe Application do
     end
   end
 
-  # login page
-  context "POST /login" do
-    xit "returns 200 OK, contains a link to register and an error" do
-      # these credentials won't work
-      response = post('/login',
-        email: 'doejane@example.com',
-        password: 'password312'
-      )
-      expect(response.status).to eq(200)
-      expect(response.body).to include("Incorrect email or password.")
-    end
-  end
+
 
   #list_space testing
   #Get Route for list_space
@@ -121,6 +110,65 @@ describe Application do
       expect(response.body).to include ("Your listing has been added.")
     end
   end
+ 
+ #test cases for Get/login route   
+ context "GET /login" do
+  it 'returns 200 OK and adds a space to rent' do
+    response = get('/login')
+
+    expect(response.status).to eq(200)
+    expect(response.body).to include ('<form method="post" action="/login">')
+    expect(response.body).to include ('<input id="email" type="email" name="email" required />')
+    expect(response.body).to include ('<input id="password" type="password" name="password" required />')
+  end
+end
+
+#test cases for POST /login route  
+context "POST/login" do
+  it "returns 302 OK if the existing user enters correct email address and password" do
+    response_initial = post('/register',
+      email: 'janedoe@example.com',
+      password: 'password312'
+    )
+    response = post('/login', email:'janedoe@example.com', password:'password312', dropdown:'Guest')
+    expect(response.status).to eq(302)
+    expect(response.body).to eq("")
+  end
+end
+ context "POST/login" do
+  it "returns 302 OK if the existing user enters correct email address and password" do
+    response_initial = post('/register',
+      email: 'janedoe@example.com',
+      password: 'password312'
+    )
+    response = post('/login', email:'janedoe@example.com', password:'password312', dropdown:'Host')
+    expect(response.status).to eq(302)
+    expect(response.body).to eq("")
+  end
+end
+context "POST/login" do
+  it "returns 200 OK if the existing user enters incorrect email address or password" do
+    response_initial = post('/register',
+      email: 'janedoe@example.com',
+      password: 'password312'
+    )
+    response = post('/login', email:'janedoe@example.com', password:'password123', dropdown:'Guest')
+    expect(response.status).to eq(200)
+    expect(response.body).to include ("Incorrect email or password.")
+  end
+end
+
+ context "POST/login" do
+  it "returns 200 OK if the existing user enters incorrect email address or password" do
+    response_initial = post('/register',
+      email: 'janedoe@example.com',
+      password: 'password312'
+    )
+    response = post('/login', email:'janrdoe@example.com', password:'password312', dropdown:'Host')
+    expect(response.status).to eq(200)
+    expect(response.body).to include ( "Incorrect email or password.")
+  end
+end 
 
 end
 
