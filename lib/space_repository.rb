@@ -87,7 +87,7 @@ class SpaceRepository
 
     def listings_by_user(host_id)
       # Executes the SQL query:
-      sql = 'SELECT id, name, description, price, host_id FROM spaces where host_id = $1;'
+      sql = 'SELECT id, name, description, price, user_id FROM spaces WHERE user_id = $1;'
       sql_params = [host_id]
       result = DatabaseConnection.exec_params(sql, sql_params)
       spaces = []
