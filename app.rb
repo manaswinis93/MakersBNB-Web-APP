@@ -62,6 +62,9 @@ class Application < Sinatra::Base
   end
 
   get '/guest_portal' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end
 
     @current_user = session[:current_user_id]
 
@@ -69,6 +72,9 @@ class Application < Sinatra::Base
   end
 
   get '/guest_bookings' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end
 
     @current_user = session[:current_user_id]
     @bookings = booking_repos.all_bookings_by_guest(@current_user)
@@ -77,6 +83,9 @@ class Application < Sinatra::Base
   end
 
   get '/host_portal' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end
 
     @current_user = session[:current_user_id]
 
@@ -84,6 +93,9 @@ class Application < Sinatra::Base
   end
 
   get '/host_listings' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end
 
     @current_user = session[:current_user_id]
     @listings = booking_repos.listings_by_user(@current_user)
@@ -92,6 +104,9 @@ class Application < Sinatra::Base
   end
 
   get '/host_bookings' do
+    if session[:current_user_id].nil?
+      redirect '/login'
+    end
 
     @current_user = session[:current_user_id]
     @bookings = booking_repos.bookings_for_host_spaces(@current_user)
