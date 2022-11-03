@@ -35,11 +35,12 @@ class SpaceRepository
       # Executes the SQL query:
       sql = "SELECT spaces.id, spaces.name, spaces.description, spaces.price, spaces.user_id, bookings.date
       FROM spaces
-      LEFT JOIN bookings ON spaces.id=bookings.space_id;"
-      result_set = DatabaseConnection.exec_params(sql, [])
+      LEFT JOIN bookings ON spaces.id=bookings.space_id
+      AND bookings.date != $1;"
+      result_set = DatabaseConnection.exec_params(sql, [date_string])
       spaces = []
       result_set.each do |record|
-        if(record['date'] != date_string)
+        if(is_available(record['id'],date_string))
           space = Space.new
           space.id = record['id'].to_i
           space.name = record['name']

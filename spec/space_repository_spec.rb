@@ -16,7 +16,7 @@ def reset_spaces_table
             result = repo.all_available("05/11/2022")
             # currently there is one space booked on
             # this date, so expect 4 to be returned
-            expect(result.length).to eq(4)
+            expect(result.length).to eq(3)
         end
     end
     context "is available method" do
