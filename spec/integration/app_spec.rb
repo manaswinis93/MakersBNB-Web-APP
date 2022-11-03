@@ -88,6 +88,19 @@ describe Application do
     end
   end
 
+  # login page
+  context "POST /login" do
+    xit "returns 200 OK, contains a link to register and an error" do
+      # these credentials won't work
+      response = post('/register',
+        email: 'doejane@example.com',
+        password: 'password312'
+      )
+      expect(response.status).to eq(200)
+      expect(response.body).to include("Incorrect email or password.")
+    end
+  end
+
   #list_space testing
   #Get Route for list_space
   context "GET /list_space" do
