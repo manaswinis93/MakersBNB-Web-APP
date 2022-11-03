@@ -61,6 +61,21 @@ class Application < Sinatra::Base
     return erb(:list_space)
   end
 
+  get '/guest_portal' do
+
+    @current_user = session[:current_user_id]
+
+    return erb(:guest_portal)
+  end
+
+  get '/guest_bookings' do
+
+    @current_user = session[:current_user_id]
+    @bookings = booking_repos.all_bookings_by_guest(@current_user)
+
+    return erb(:guest_bookings)
+  end
+
   get '/host_portal' do
 
     @current_user = session[:current_user_id]
@@ -71,14 +86,28 @@ class Application < Sinatra::Base
   get '/host_listings' do
 
     @current_user = session[:current_user_id]
-
-    @listings = space_repos.listings_by_user(@current_user)
+    @listings = booking_repos.listings_by_user(@current_user)
 
     return erb(:host_listings)
+  end
+
+  get '/host_bookings' do
+
+    @current_user = session[:current_user_id]
+    @bookings = booking_repos.bookings_for_host_spaces(@current_user)
+
+    return erb(:host_bookings)
   end
   
   
   # post routes
+  post '/approve_or_deny_booking' do
+    @current_user = session[:current_user_id]
+    booking_repos.approve_or_deny_booking(
+      params[:booking_id],
+      params[:approve_or_deny]
+    )
+  end
   post '/list_space' do
     result = space_repos.create(
       params[:name], params[:description], params[:price], session[:current_user_id]

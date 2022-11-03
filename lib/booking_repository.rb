@@ -30,4 +30,16 @@ class BookingRepository
 
     end
 
+    def all_bookings_by_guest(guest_id)
+        
+    end
+
+    def bookings_for_host_spaces(host_id)
+
+    end
+
+    def approve_or_deny_booking(booking_id,approve_or_deny)
+
+    end
+
 end
