@@ -55,6 +55,15 @@ class Application < Sinatra::Base
     #set_session_for_testing()
     return erb(:list_space)
   end
+
+  get '/host_spaces' do
+
+    @current_user = session[:current_user_id]
+
+    @listings = space_repos.listings_by_user(@current_user)
+
+    return erb(:host_spaces)
+  end
   
   
   # post routes

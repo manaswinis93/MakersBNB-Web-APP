@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Host Listings</title>
+        <link rel="stylesheet" href="/style.css" >
+    </head>
+    <body>
+        <h1>Host Listings</h1>
+        
+        <% if @all_spaces.any? %>
+                <p>Here are all the listings for <em><%= @selected_date %></em>.</p>
+                <ul class="spaces-list">
+                    <% @all_spaces.each do |space| %>
+                        <li>
+                            <div class="space-item">
+                                <p>Name: <%= space.name %></p>
+                                <p>Description: <%= space.description %></p>
+                                <p>Price: £<%= space.price %></p>
+                                <form action="/book" method="post">
+                                    <input name="space_id" value="<%= space.id %>" type="hidden">
+                                    <input name="selected_date" value="<%= @selected_date %>" type="text" readonly>
+                                    <input type="submit" value="Book this space">
+                                </form>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+            <% end %>
+        <% if @all_spaces.any? %>
+                <p>Here are all the listings for <em><%= @selected_date %></em>.</p>
+                <ul class="spaces-list">
+                    <% @all_spaces.each do |space| %>
+                        <li>
+                            <div class="space-item">
+                                <p>Name: <%= space.name %></p>
+                                <p>Description: <%= space.description %></p>
+                                <p>Price: £<%= space.price %></p>
+                                <form action="/book" method="post">
+                                    <input name="space_id" value="<%= space.id %>" type="hidden">
+                                    <input name="selected_date" value="<%= @selected_date %>" type="text" readonly>
+                                    <input type="submit" value="Book this space">
+                                </form>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+            <% end %>
+
+        # Link here for host portal
+        <a href = '/host_portal'> Go back to Host Portal </a>
+    </body>
+</html>

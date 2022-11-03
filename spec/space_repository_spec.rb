@@ -80,17 +80,35 @@ def reset_spaces_table
             expect(spaces[-1].price).to eq('300')
             expect(spaces[-1].user_id).to eq(3) #will be a session variable
         end
-    it "returns nil if that listing already exists in the table" do
-        repo = SpaceRepository.new
+        it "returns nil if that listing already exists in the table" do
+            repo = SpaceRepository.new
 
-        name = 'cottage_1'
-        description =  'Good description'
-        price = 250
-        user_id =  2
-        result = repo.create(name, description, price, user_id)
-    
+            name = 'cottage_1'
+            description =  'Good description'
+            price = 250
+            user_id =  2
+            result = repo.create(name, description, price, user_id)
+        
 
-        expect(result).to eq nil
+            expect(result).to eq nil
+        end
+    end
+
+    context "listings by user" do
+        it "returns array of space objects according to user id" do
+            repo = SpaceRepository.new
+            spaces = repo.listings_by_user(1)
+            expect(spaces[0].id).to eq(1)
+            expect(spaces[0].name).to eq('cottage_4')
+            expect(spaces[0].description).to eq('some dsecription')
+            expect(spaces[0].price).to eq(200)
+            expect(spaces[0].user_id).to eq(1)
+
+            expect(spaces[1].id).to eq(2)
+            expect(spaces[1].name).to eq('cottage_2')
+            expect(spaces[1].description).to eq('some random description')
+            expect(spaces[1].price).to eq(200)
+            expect(spaces[1].user_id).to eq(1)
+        end
     end
 end
-  end
