@@ -120,6 +120,14 @@ class SpaceRepository
     # Returns a single space object.
 
    end
+
+   def listings_by_user(id)
+    # Executes the SQL query:
+    # 'SELECT id, name, description, price, host_id FROM spaces where host_id = $1;'
+
+    # Return an array of Space Objects
+   end
+
   # To be decided --- nice to have for user to update and delete spaces if he wants to 
   # def update(student)
   # end

@@ -84,6 +84,25 @@ class SpaceRepository
           return nil
         end 
     end
+
+    def listings_by_user(host_id)
+      # Executes the SQL query:
+      sql = 'SELECT id, name, description, price, user_id FROM spaces WHERE user_id = $1;'
+      sql_params = [host_id]
+      result = DatabaseConnection.exec_params(sql, sql_params)
+      spaces = []
+      result.each do |record|
+          space = Space.new
+          space.id = record['id'].to_i
+          space.name = record['name']
+          space.description = record['description']
+          space.price = record['price']
+          space.user_id = record['user_id'].to_i
+          spaces << space
+      end
+      return spaces
+      # Return an array of Space Objects
+     end
     # To be decided --- nice to have for user to update and delete spaces if he wants to 
     # def update(student)
     # end

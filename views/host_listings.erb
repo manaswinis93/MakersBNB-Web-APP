@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Host Listings</title>
+        <link rel="stylesheet" href="/style.css" >
+    </head>
+    <body>
+        <h1>Host Listings</h1>
+        <p></p>
+
+        <% if @listings.any? %>
+            <ul class="spaces-list">
+                <% @listings.each do |space| %>
+                    <li>
+                        <div class="space-item">
+                            <p>Name: <%= space.name %></p>
+                            <p>Description: <%= space.description %></p>
+                            <p>Price: £<%= space.price %></p>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        <% else %>
+        <p>No current listings.</p>
+        <% end %>
+        
+        <a href = '/host_portal'> Go back to Host Portal </a>
+    </body>
+</html> 
