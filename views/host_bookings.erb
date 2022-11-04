@@ -25,7 +25,7 @@
         <p></p>
 
         <% if @bookings.any? %>
-            <table>
+            <table border="1">
                 <tr>
                     <th>Space</th>
                     <th>Date</th>
@@ -39,7 +39,7 @@
                         <td><%= booking.status %></td>
                         <td>
                         <form method="post" action="/approve_or_deny_booking">
-                            <input value="<%= booking.booking_id %>" type="hidden" name="booking_id">
+                            <input value="<%= booking.id %>" type="hidden" name="booking_id">
                             <input value="Approved" type="submit" name="approve_or_deny">
                             <input value="Denied" type="submit" name="approve_or_deny">
                         </form>
