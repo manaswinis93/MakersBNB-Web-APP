@@ -1,13 +1,13 @@
-<img src="images/banner.png">
+<img src="images/banner.png" width="1000">
 
 
 # MakersBnB Project By Team Runhappy
 
 
 
-This repo contains the seed codebase for the MakersBnB project in Ruby (using Sinatra and RSpec).
+This repo contains the codebase for the MakersBnB project in Ruby by team Runhappy, the team consists of Emma, Haydn, Manaswini, Molly and Owen.
 
-Someone in your team should fork this seed repo to their Github account. Everyone in the team should then clone this fork to their local machine to work on it.
+This is our MakersBnB App which is hosted on local host, the user is given the ability to signup/login, views available spaces, book a space and logout. the host is given his/her own portal once signed in which allows them to list a space to be rented and manage their bookings please find access to our project below.
 
 ## Setup
 
