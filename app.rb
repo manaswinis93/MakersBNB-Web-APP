@@ -38,6 +38,12 @@ class Application < Sinatra::Base
     return erb(:login)
   end
 
+  get '/logout' do
+    session[:current_user_id] = nil
+  
+    redirect '/'
+  end
+
   get '/spaces' do
     # get session
     @current_user = session[:current_user_id]
@@ -214,9 +220,10 @@ class Application < Sinatra::Base
       else
          redirect "/"
       end
-    
+
 
     end
   end
+
 
 end
