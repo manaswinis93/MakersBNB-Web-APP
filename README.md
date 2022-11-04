@@ -36,9 +36,9 @@ then enter http://127.0.0.1:9292/spaces into your web browser
 
 Below you can find the user stories:
 
-```bash
+
 #Spec :Any signed-up user can list a new space
-```
+```bash
 As a user, 
 So that I can access MakersBNB
 I must be able to register with a email, username  and password
