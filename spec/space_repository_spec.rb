@@ -29,7 +29,7 @@ def reset_spaces_table
         end
         it "should return if a specific space is available " do
             repo = SpaceRepository.new
-            result = repo.is_available("3","06/11/2022")
+            result = repo.is_available("3","06/12/2022")
             # this space isn't booked on this date
             # should return true
             expect(result).to eq(true)
