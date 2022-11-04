@@ -6,6 +6,7 @@
 
 
 This repo contains the codebase for the MakersBnB project in Ruby by our team Runhappy as part of Makers team challenge.
+The team consists of Emma, Haydn, Manaswini, Molly and Owen.
 
 This is our MakersBnB App which is hosted on local host, the user is given the ability 
 to register, 
