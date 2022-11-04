@@ -130,6 +130,10 @@ class Application < Sinatra::Base
       params[:booking_id],
       params[:approve_or_deny]
     )
+    # display host_bookigs page with new data
+    @bookings = booking_repos.bookings_for_host_spaces(@current_user)
+    @approved_or_denied_msg = "You have #{params[:approve_or_deny].downcase} Booking #{params[:booking_id]}.";
+    return erb(:host_bookings)
   end
   post '/list_space' do
     result = space_repos.create(

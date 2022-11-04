@@ -22,7 +22,7 @@
       </div>
       <div class="wrapper">
         <h1>Bookings for your spaces</h1>
-        <p></p>
+        <p style="color:red"><%= @approved_or_denied_msg %></p>
 
         <% if @bookings.any? %>
             <table border="1">
