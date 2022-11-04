@@ -7,7 +7,13 @@
 
 This repo contains the codebase for the MakersBnB project in Ruby by team Runhappy, the team consists of Emma, Haydn, Manaswini, Molly and Owen.
 
-This is our MakersBnB App which is hosted on local host, the user is given the ability to signup/login, views available spaces, book a space and logout. the host is given his/her own portal once signed in which allows them to list a space to be rented and manage their bookings please find access to our project below.
+This is our MakersBnB App which is hosted on local host, the user is given the ability 
+to register, 
+to login as a Guest to book a space and view bookings,
+to login as a Host to list a space, view his/her listings, view bookings for their listings and approve or deny them.
+to view only spaces available for a particular date, book a space and logout.
+
+Please find access to our project below.
 
 ## Setup
 
