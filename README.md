@@ -38,15 +38,15 @@ Below you can find the user stories:
 
 ```bash
 # Spec :Any signed-up user can list a new space
-```
+
 As a user, 
 So that I can access MakersBNB
 I must be able to register with a email, username  and password
-```
+
 As a user, 
 So that I can list a new space
 I must be able to login with email address, username and password as a host
-```
+
 As a user 
 So that I can book a space
 I must be able to login with username and password as a  guest
@@ -56,7 +56,7 @@ I must be able to login with username and password as a  guest
 As a user,
 So that I can rent multiple spaces,
 I want to list multiple spaces at the same time.
-``` 
+
 # Spec : Users should be able to name their space, provide a short description of the space, and a price per night.
 ```
 As a user,
