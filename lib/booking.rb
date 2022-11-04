@@ -3,5 +3,5 @@
 
 class Booking
     # Replace the attributes by your own columns.
-    attr_accessor :id, :space_id, :user_id, :date, :status
+    attr_accessor :id, :space_id, :space_name, :user_id, :date, :status
 end
