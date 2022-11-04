@@ -80,13 +80,25 @@ describe Application do
 
   
   context "POST /book" do
-    xit 'returns 200 OK and books space' do
-      response = post('/book', space_id: 2  )
+    it 'returns 302 OK and redirects to login page' do
+      response = post('/book', space_id: 2, selected_date: '04/11/2022'  )
 
-      expect(response.status).to eq(200)
-      expect(response.body).to include("Your Booking has been Requested!")
+      expect(response.status).to eq(302)
+      expect(response.body).to eq("")
+    end
+    it 'returns 200 OK and books the space' do
+      response_initial = post('/register',
+        email: 'janedoe@example.com',
+        password: 'password312'
+      )
+      response_login = post('/login', email:'janedoe@example.com', password:'password312', dropdown:'Guest')
+      response_book = post('/book', space_id: 2, selected_date: '04/11/2022'  )
+
+      expect(response_book.status).to eq(200)
+      expect(response_book.body).to include("Your Booking has been Requested!")
     end
   end
+
 
 
 
