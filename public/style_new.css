@@ -36,6 +36,9 @@ fieldset{
     padding:15px;
     border-bottom:dashed 1px rgba(0,0,0,0.1);
 }
+.dropdown{
+    margin:15px;
+}
 .spaces-list li{
     margin-bottom:15px;
     list-style:none;
