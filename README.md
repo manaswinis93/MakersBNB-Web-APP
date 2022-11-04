@@ -38,7 +38,7 @@ Below you can find the user stories:
 
 ```bash
 # Spec :Any signed-up user can list a new space
-
+```
 As a user, 
 So that I can access MakersBNB
 I must be able to register with a email, username  and password
@@ -51,11 +51,13 @@ As a user
 So that I can book a space
 I must be able to login with username and password as a  guest
 ``` 
+
 # Spec : Users can list multiple spaces. 
 ```
 As a user,
 So that I can rent multiple spaces,
 I want to list multiple spaces at the same time.
+```
 
 # Spec : Users should be able to name their space, provide a short description of the space, and a price per night.
 ```
@@ -63,25 +65,28 @@ As a user,
 So that guests can read my space details,
 I want to give my space a name, description and price.
 ```
-#Spec: Users should be able to offer a range of dates where their space is available.
+
+# Spec: Users should be able to offer a range of dates where their space is available.
 ```
 As a user,
 So that guests can see when my space is available,
 I want to list the dates when my space is available.
 ``` 
-#Spec: Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
+
+# Spec: Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
 ```
 As a guest,
 So that I can rent a space for a night,
 Check the spaces available for that date?
 I want to send a booking request to the host.
-``` 
+ 
 As a host
 So that I can approve a request,
 I want to see who requests to hire my space.
 (up for debate but we may need guest/owner accountability here)
 ``` 
-#Spec : Nights for which a space has already been booked should not be available for users to book that space.
+
+# Spec : Nights for which a space has already been booked should not be available for users to book that space.
 ```
 As a host, 
 So that my space is not double booked,
