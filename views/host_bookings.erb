@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Host bookings - MakersBnB</title>
+      <link rel="stylesheet" href="/style_new.css" >
+  </head>
+  <body>
+      <div class="nav">
+          <div class="nav-tab logo"><p>MakersBnB</p></div>
+          <div class="nav-tab pages">
+              <p><a href="/spaces">Spaces</a></p>
+              <p><a href="/guest_portal">Guests Portal</a></p>
+              <p><a href="/host_portal">Hosts Portal</a></p>
+          </div>
+          <div class="nav-tab account">
+          <% if @current_user.nil? %>
+              <p><a href="/login">Login</a> • <a href="/register">Register</a></p>
+          <% else %>
+              <p>You are logged in.</p>
+          <% end %>
+          </div>
+      </div>
+      <div class="wrapper">
+        <h1>Bookings for your spaces</h1>
+        <p></p>
+
+        <% if @bookings.any? %>
+            <table>
+                <tr>
+                    <th>Space</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Approve or deny</th>
+                </tr>
+                <% @bookings.each do |booking| %>
+                    <tr>
+                        <td><%= booking.space_id %></td>
+                        <td><%= booking.date %></td>
+                        <td><%= booking.status %></td>
+                        <td>
+                        <form method="post" action="/approve_or_deny_booking">
+                            <input value="<%= booking.booking_id %>" type="hidden" name="booking_id">
+                            <input value="Approved" type="submit" name="approve_or_deny">
+                            <input value="Denied" type="submit" name="approve_or_deny">
+                        </form>
+                        </td>
+                    </tr>
+                <% end %>
+            </table>
+        <% else %>
+        <p>No current bookings.</p>
+        <% end %>
+        
+        </div>
+    </body>
+</html> 

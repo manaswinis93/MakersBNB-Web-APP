@@ -100,14 +100,14 @@ def reset_spaces_table
             spaces = repo.listings_by_user(1)
             expect(spaces[0].id).to eq(1)
             expect(spaces[0].name).to eq('cottage_4')
-            expect(spaces[0].description).to eq('some dsecription')
-            expect(spaces[0].price).to eq(200)
+            expect(spaces[0].description).to eq('some description')
+            expect(spaces[0].price).to eq("200")
             expect(spaces[0].user_id).to eq(1)
 
             expect(spaces[1].id).to eq(2)
             expect(spaces[1].name).to eq('cottage_2')
             expect(spaces[1].description).to eq('some random description')
-            expect(spaces[1].price).to eq(200)
+            expect(spaces[1].price).to eq("200")
             expect(spaces[1].user_id).to eq(1)
         end
     end

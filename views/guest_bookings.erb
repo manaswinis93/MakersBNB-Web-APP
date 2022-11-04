@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>Host portal - MakersBnB</title>
+      <title>Your bookings - MakersBnB</title>
       <link rel="stylesheet" href="/style_new.css" >
   </head>
   <body>
@@ -21,20 +21,28 @@
           </div>
       </div>
       <div class="wrapper">
-        <h1>Host Portal</h1>
+        <h1>Your Bookings</h1>
         <p></p>
 
-        <li>
-        <a href = '/list_space'> Add a listing </a>
-        </li>
+        <% if @bookings.any? %>
+            <table>
+                <tr>
+                    <th>Space</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                <% @bookings.each do |booking| %>
+                    <tr>
+                        <td><%= booking.space_id %></td>
+                        <td><%= booking.date %></td>
+                        <td><%= booking.status %></td>
+                    </tr>
+                <% end %>
+            </table>
+        <% else %>
+        <p>No current bookings.</p>
+        <% end %>
         
-        <li>
-        <a href = '/host_listings'> View my listings </a>
-        </li>
-
-        <li>
-        <a href = '/host_bookings'> View bookings for my spaces </a>
-        </li>
         </div>
     </body>
-</html>
+</html> 
