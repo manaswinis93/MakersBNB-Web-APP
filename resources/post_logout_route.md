@@ -1,4 +1,4 @@
-# {{ METHOD }} {{ PATH}} Route Design Recipe
+Post logout Route Design Recipe
 
 _Copy this design recipe template to test-drive a Sinatra route._
 
@@ -11,7 +11,8 @@ You'll need to include:
   * or body parameters (passed in the request body)
 
 
-POST /logout 
+POST /logout
+no parameters
 
 
 ## 2. Design the Response
@@ -28,9 +29,13 @@ _Replace the below with your own design. Think of all the different possible res
 <!-- EXAMPLE -->
 <!-- Response 302 OK and returns the user to the page listing all spaces -->
 
-Welcome to MakersBnB!
+All spaces
 
-
+<div>
+  Name:
+  Short description:
+  Price:
+</div>
 
 
 ```
@@ -41,9 +46,9 @@ _Replace these with your own design._
 
 ```
 # Request:
-POST /logout
+GET /spaces
 # Expected response:
-Response for 302 OK
+Response for 200 OK
 ```
 
 
@@ -56,13 +61,12 @@ require "spec_helper"
 describe Application do
   include Rack::Test::Methods
   let(:app) { Application.new }
-  context "POST /logout" do
-    it 'returns 302 REDIRECT and returns list of spaces' do
-      response = post('/logout')
+  context "GET /spaces" do
+    it 'returns 200 OK and returns list of spaces' do
+      response = get('/spaces')
 
-      expect(response.status).to eq(302)
-      expect(response.body).to include("<title>Spaces | MakersBnB</title>")
-      expect(response.body).to include(<a href="/login">Login</a>)
+      expect(response.status).to eq(200)
+      expect(response.body).to include("<h2>Space1</h2>")
     end
   end
 end
