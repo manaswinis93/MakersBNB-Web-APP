@@ -21,13 +21,9 @@
             </div>
         </div>
         <div class="wrapper">
-            <h1>Booking Requested</h1>
-            <p> Your Booking has been Requested! </p>
-            <p> Please wait for a confirmation Email. </p>
-            <ul>
-                <li><a href = '/spaces?selected_date=<%= @selected_date %>'> Continue browsing spaces available for <%= @selected_date %></a></li>
-                <li><a href = '/spaces'> Browse all spaces</a></li>
-            </ul>  
+            <h1><%= @approved_or_denied %> booking</h1>
+            <p><%= @approved_or_denied_msg %></p>
+            <p><a href="/host_bookings">Go back to Bookings For Your Spaces</a></p>
         </div>
     </body>
 </html>

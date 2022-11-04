@@ -131,9 +131,9 @@ class Application < Sinatra::Base
       params[:approve_or_deny]
     )
     # display host_bookigs page with new data
-    @bookings = booking_repos.bookings_for_host_spaces(@current_user)
+    @approved_or_denied = params[:approve_or_deny];
     @approved_or_denied_msg = "You have #{params[:approve_or_deny].downcase} Booking #{params[:booking_id]}.";
-    return erb(:host_bookings)
+    return erb(:approve_or_deny)
   end
   post '/list_space' do
     result = space_repos.create(
@@ -156,6 +156,7 @@ class Application < Sinatra::Base
     result = booking_repos.create(
       session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
     )
+    @selected_date = params[:selected_date]
     @booking_msg = "Your booking has been requested."
     if(result.nil?)
       @booking_msg = "That booking already exists. Please try again."
