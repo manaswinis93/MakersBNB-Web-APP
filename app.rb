@@ -98,7 +98,7 @@ class Application < Sinatra::Base
     end
 
     @current_user = session[:current_user_id]
-    @listings = booking_repos.listings_by_user(@current_user)
+    @listings = space_repos.listings_by_user(@current_user)
 
     return erb(:host_listings)
   end
