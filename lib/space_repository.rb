@@ -21,23 +21,17 @@ class SpaceRepository
 
     def is_available(space_id,date_string)
       # checks if a space is available on this date (dd/mm/yyyy)
-      sql = "SELECT spaces.id, spaces.name, spaces.description, spaces.price, spaces.user_id, bookings.date
-      FROM spaces
-      LEFT JOIN bookings ON spaces.id=bookings.space_id
-      AND spaces.id=$1;"
-      record = DatabaseConnection.exec_params(sql, [space_id])[0]
+      sql = "SELECT * FROM bookings WHERE space_id=$1 AND date=$2 AND status='Approved'"
+      record = DatabaseConnection.exec_params(sql, [space_id,date_string])
       # returns boolean
-      return (record['date'] != date_string)
+      return (record.num_tuples < 1)
     end
 
     def all_available(date_string)
       # selects spaces that are available on this date (dd/mm/yyyy)
       # Executes the SQL query:
-      sql = "SELECT spaces.id, spaces.name, spaces.description, spaces.price, spaces.user_id, bookings.date
-      FROM spaces
-      LEFT JOIN bookings ON spaces.id=bookings.space_id
-      AND bookings.date != $1;"
-      result_set = DatabaseConnection.exec_params(sql, [date_string])
+      sql = "SELECT * FROM spaces"
+      result_set = DatabaseConnection.exec_params(sql, [])
       spaces = []
       result_set.each do |record|
         if(is_available(record['id'],date_string))
