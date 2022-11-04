@@ -40,7 +40,7 @@ describe BookingRepository do
             
             # check that the method returns an array of bookings by that user
             expect(bookings.length).to eq(4)
-            expect(bookings[0].space_id).to eq('3')
+            expect(bookings[0].space_id).to eq('2')
             # 06/11/2022
             expect(bookings[-1].date).to eq('06/11/2022')
 

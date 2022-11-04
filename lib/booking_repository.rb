@@ -33,7 +33,10 @@ class BookingRepository
     def all_bookings_by_guest(guest_id)
         # selecting from the bookings table
         # where user_id==guest_id
-        sql = "SELECT * FROM bookings WHERE user_id=$1"
+        sql = "SELECT bookings.id, bookings.space_id, bookings.user_id, bookings.date, bookings.status, spaces.name
+        FROM bookings
+        JOIN spaces ON spaces.id = bookings.space_id
+        AND bookings.user_id=$1"
         sql_params=[guest_id]
         sql_result = DatabaseConnection.exec_params(sql, sql_params)
         # return as array
@@ -43,6 +46,7 @@ class BookingRepository
             booking.id=record["id"]
             booking.date=record["date"]
             booking.space_id=record['space_id']
+            booking.space_name=record['name']
             booking.user_id=record["user_id"]
             booking.status=record['status']
             to_return << booking
@@ -58,13 +62,17 @@ class BookingRepository
         spaces_set = DatabaseConnection.exec_params(spaces_sql, [host_id])
         all_bookings = []
         spaces_set.each do |space|
-            sql = 'SELECT * FROM bookings WHERE space_id = $1;'
+            sql = 'SELECT bookings.id, bookings.space_id, bookings.user_id, bookings.date, bookings.status, spaces.name
+            FROM bookings
+            JOIN spaces ON spaces.id = bookings.space_id
+            AND bookings.space_id = $1;'
             result_set = DatabaseConnection.exec_params(sql, [space["id"]])
             result_set.each do |record|
                 booking = Booking.new
                 booking.id=record["id"]
                 booking.date=record["date"]
                 booking.space_id=record['space_id']
+                booking.space_name=record['name']
                 booking.user_id=record["user_id"]
                 booking.status=record['status']
                 all_bookings << booking
