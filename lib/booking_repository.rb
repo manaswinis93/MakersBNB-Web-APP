@@ -40,6 +40,7 @@ class BookingRepository
         to_return = []
         sql_result.each do |record|
             booking = Booking.new
+            booking.id=record["id"]
             booking.date=record["date"]
             booking.space_id=record['space_id']
             booking.user_id=record["user_id"]
@@ -61,6 +62,7 @@ class BookingRepository
             result_set = DatabaseConnection.exec_params(sql, [space["id"]])
             result_set.each do |record|
                 booking = Booking.new
+                booking.id=record["id"]
                 booking.date=record["date"]
                 booking.space_id=record['space_id']
                 booking.user_id=record["user_id"]

@@ -29,7 +29,7 @@
                     <input type="submit">
                 </form>
             </fieldset>
-            <% if @all_spaces.any? %>
+            <% if (@all_spaces.any?) %>
                 <p>Here are all the listings for <em><%= @selected_date %></em>.</p>
                 <ul class="spaces-list">
                     <% @all_spaces.each do |space| %>
@@ -47,6 +47,8 @@
                         </li>
                     <% end %>
                 </ul>
+            <% elsif(!@selected_date.nil?) %>
+                <p>No bookings are available for the selected date.</p>
             <% end %>
         </div>
     </body>
