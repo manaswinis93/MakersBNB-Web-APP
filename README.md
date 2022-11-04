@@ -66,7 +66,7 @@ So that guests can read my space details,
 I want to give my space a name, description and price.
 ```
 
-Spec: Users should be able to offer a range of dates where their space is available.
+Spec: Users should be able to offer the date where their space is available.
 ```
 As a user,
 So that guests can see when my space is available,
@@ -77,13 +77,11 @@ Spec: Any signed-up user can request to hire any space for one night, and this s
 ```
 As a guest,
 So that I can rent a space for a night,
-Check the spaces available for that date?
 I want to send a booking request to the host.
  
 As a host
 So that I can approve a request,
 I want to see who requests to hire my space.
-(up for debate but we may need guest/owner accountability here)
 ``` 
 
 Spec: Nights for which a space has already been booked should not be available for users to book that space.
