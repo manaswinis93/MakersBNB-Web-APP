@@ -143,7 +143,10 @@ class Application < Sinatra::Base
   end
   post '/list_space' do
     result = space_repos.create(
-      params[:name], params[:description], params[:price], session[:current_user_id]
+      CGI.escapeHTML(params[:name]),
+      CGI.escapeHTML(params[:description]),
+      CGI.escapeHTML(params[:price]),
+      session[:current_user_id]
     )
     @space_added_msg = "Your listing has been added."
     if (result.nil?)
@@ -160,7 +163,10 @@ class Application < Sinatra::Base
       redirect '/login'
     end  
     result = booking_repos.create(
-      session[:current_user_id] , params[:space_id], params[:selected_date], 'Requested'
+      session[:current_user_id],
+      params[:space_id],
+      params[:selected_date],
+      'Requested'
     )
     @selected_date = params[:selected_date]
     @booking_msg = "Your booking has been requested."
